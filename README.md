@@ -107,3 +107,8 @@
 If you have a Digilent cable the setup is done.
 Instead, if you have a Xilinx Platform Cable, its led will light up (its firmware has been loaded) but to use it you need to go back to the "Devices->USB devices" VirtualBox menu and select "XILINX". After that click "Cancel" on Hardware Manager and then once again the "Open Target".  Your cable setup is done.
 
+
+Contributions
+-------------
+Code examples and how-to guides are provided for your use, but please feel free to contribute your own code and wisdom back to this repository via a pull request in the usual fashion.  Please fork from this repo, then create a suitably named branch in your fork before submitting back to this repo.  Please don't submit a pull request from your "master" branch.  Each new addition to the code should belong to its own submitted branch.  Thanks. 
+
