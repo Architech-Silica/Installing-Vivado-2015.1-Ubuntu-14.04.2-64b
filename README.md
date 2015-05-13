@@ -9,6 +9,17 @@
 	sudo apt-get install curl fxload gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential chrpath libsdl1.2-dev xterm vim curl minicom xsltproc cmake u-boot-tools nfs-common nfs-kernel-server
 	sudo ln -s /usr/bin/make /usr/bin/gmake
 	sudo chmod a+rwx /opt
+	sudo dpkg --add-architecture i386
+	sudo apt-get update
+	sudo apt-get install libc6:i386
+	sudo apt-get install libstdc++6:i386
+	sudo apt-get install libfontconfig1:i386
+	sudo apt-get install libXext6:i386
+	sudo apt-get install libXrender1:i386
+	sudo apt-get install libgthread1:i386
+	sudo apt-get install libglib2:i386
+	sudo apt-get install libglib2.0-0:i386
+	sudo apt-get install libsm6:i386
 	</pre>
 
 2. Create directory:
@@ -21,6 +32,7 @@
 	+ 52-xilinx-pcusb.rules
 	+ libusb-1.0.9.tar.bz2
 <p>
+
 3. Install Vivado as un-priviledged user:
  
 	<pre>
@@ -73,7 +85,23 @@
     -rw-r--r-- 1 root root 1157 Apr 14  2014 README
 	</pre>
 
-5. Create a script file `vivado.sh` containing the following:
+5. Generate (webpack) license
+
+	<pre>
+	sudo su
+	cd /opt/Xilinx/Vivado/2015.1/bin/unwrapped/lnx64.o/ 
+	./install_fnp.sh 
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/Xilinx/Vivado/2015.1/lib/lnx64.o/
+	sudo ./xlicclientmgr -cr clickforlicense.xml
+	exit
+	firefox clickforlicense.html
+	</pre>
+	on lower tab "Activation Based Licenses" tick the "Vivado WebPACK License", then click on "Activate Node-locked License" button
+	download the Xilinx_License.xml file then launch License manager using
+	`vlm`
+	then select "Load License" then click on button "Activate License" and point to file Xilinx_License.xml 
+
+6. Create a script file `vivado.sh` containing the following:
 
     <pre>
 	export XIL_IMPACT_USE_LIBUSB=1
@@ -97,13 +125,13 @@
     LC_ALL=en_US.UTF-8
     </pre>
 
-6. Source the script using `. vivado.sh`
+7. Source the script using `. vivado.sh`
 
 	then launch vivado by typing `vivado`.
 
-7. Connect JTAG cable and link it to the VM from "Devices->USB devices" VirtualBox menu.  The Digilent cable should appear as "Digilent Adept USB Device" while then Xilinx Platform Cable should appear as "Unknown device 03FD:0013".
+8. Connect JTAG cable and link it to the VM from "Devices->USB devices" VirtualBox menu.  The Digilent cable should appear as "Digilent Adept USB Device" while then Xilinx Platform Cable should appear as "Unknown device 03FD:0013".
 
-8. From Vivado launch "Open Hardware Manager", then "Open Target->Auto Connect".
+9. From Vivado launch "Open Hardware Manager", then "Open Target->Auto Connect".
 If you have a Digilent cable the setup is done.
 Instead, if you have a Xilinx Platform Cable, its led will light up (its firmware has been loaded) but to use it you need to go back to the "Devices->USB devices" VirtualBox menu and select "XILINX". After that click "Cancel" on Hardware Manager and then once again the "Open Target".  Your cable setup is done.
 
@@ -111,4 +139,4 @@ Instead, if you have a Xilinx Platform Cable, its led will light up (its firmwar
 Contributions
 -------------
 Code examples and how-to guides are provided for your use, but please feel free to contribute your own code and wisdom back to this repository via a pull request in the usual fashion.  Please fork from this repo, then create a suitably named branch in your fork before submitting back to this repo.  Please don't submit a pull request from your "master" branch.  Each new addition to the code should belong to its own submitted branch.  Thanks. 
-
+ 
